@@ -10,9 +10,10 @@ function App() {
 
   const [userdata, setuserdata] = useState([]);
 
-  useEffect(() => {
-    axios.get("https://fma-api.onrender.com/api/get").then((responce) => {
+  useEffect(async() => {
+    await axios.get("https://fma-api.onrender.com/api/get").then((responce) => {
       setuserdata(responce.data);
+      console.log(responce.data);
     });
   }, []);
 
@@ -81,10 +82,12 @@ function App() {
       </div>
 
       <div className="list">
+      <h3>data</h3>
         {
           userdata.map((item) => {
             return(
               <>
+              
                 <p>
                   name: {item.name} | age: {item.age}
                 </p>
@@ -93,6 +96,7 @@ function App() {
           })
         }
       </div>
+
     </div>
   );
 }
