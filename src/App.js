@@ -9,7 +9,7 @@ function App() {
   const [gender, setGender] = useState("")
 
   const register = async () => {
-    await axios.post("https://economic-dust-tiara.glitch.me/api/registration", {
+    await axios.post("https://fma-api.onrender.com/api/registration", {
       name: name,
       gender: gender,
       age: age,
