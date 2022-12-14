@@ -13,6 +13,7 @@ function App() {
   useEffect(() => {
     axios.get("https://fma-api.onrender.com/api/get").then((responce) => {
       setuserdata(responce.data);
+      console.log(responce.data);
     });
   }, []);
 
@@ -82,10 +83,10 @@ function App() {
 
       <div className="list">
         <h3>data</h3>
-        {userdata.map((item) => {
+        {userdata.map((item,key) => {
           return (
             <>
-              <p>
+              <p key={item.name}>
                 name: {item.name} | age: {item.age}
               </p>
             </>
