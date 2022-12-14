@@ -1,22 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./app.css";
 import axios from "axios";
 
 function App() {
-  const [name, setName] = useState("")
-  const [session, setSession] = useState("")
-  const [age, setAge] = useState(0)
-  const [gender, setGender] = useState("")
+  const [name, setName] = useState("");
+  const [session, setSession] = useState("");
+  const [age, setAge] = useState(0);
+  const [gender, setGender] = useState("");
+
+  const [userdata, setuserdata] = useState([]);
+
+  useEffect(() => {
+    axios.get("https://fma-api.onrender.com/api/get").then((responce) => {
+      setuserdata(responce.data);
+    });
+  }, []);
 
   const register = async () => {
-    await axios.post("https://fma-api.onrender.com/api/registration", {
-      name: name,
-      gender: gender,
-      age: age,
-      session: session,
-    }).then(() => {
-      alert("Registration Successfully !")
-    });
+    await axios
+      .post("https://fma-api.onrender.com/api/registration", {
+        name: name,
+        gender: gender,
+        age: age,
+        session: session,
+      })
+      .then(alert("Registration Successfully !"));
   };
 
   return (
@@ -70,6 +78,20 @@ function App() {
         </div>
 
         <button onClick={register}>Submit</button>
+      </div>
+
+      <div className="list">
+        {
+          userdata.map((item) => {
+            return(
+              <>
+                <p>
+                  name: {item.name} | age: {item.age}
+                </p>
+              </>
+            )
+          })
+        }
       </div>
     </div>
   );
